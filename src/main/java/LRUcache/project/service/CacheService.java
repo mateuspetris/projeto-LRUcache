@@ -29,7 +29,7 @@ public class CacheService {
         return buildState("PUT", evicted);
     }
 
-    public CacheStateDTO delete(String key, String value){
+    public CacheStateDTO delete(String key){
         cache.delete(key);
         return buildState("DELETE", null);
     }
@@ -37,6 +37,10 @@ public class CacheService {
     public CacheStateDTO clear(){
         cache.clear();
         return buildState("CLEAR", null);
+    }
+
+    public CacheStateDTO getState () {
+        return buildState("STATE", null);
     }
 
     private CacheStateDTO buildState(String operation, String evicted){
