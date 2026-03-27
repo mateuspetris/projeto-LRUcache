@@ -9,5 +9,5 @@ import lombok.Data;
 public class CacheEntryDTO {
     private String key;
     private String value;
-    private String position;
+    private int position;
 }
