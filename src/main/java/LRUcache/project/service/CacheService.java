@@ -29,9 +29,10 @@ public class CacheService {
         return buildState("PUT", evicted);
     }
 
-    public CacheStateDTO delete(String key){
-        cache.delete(key);
-        return buildState("DELETE", null);
+    public CacheStateDTO delete(String key) {
+        boolean removed = cache.delete(key);
+        String operation = removed ? "DELETE" : "KEY NOT FOUND";
+        return buildState(operation, null);
     }
 
     public CacheStateDTO clear(){

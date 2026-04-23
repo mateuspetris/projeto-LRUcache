@@ -38,7 +38,7 @@ public class LRUcache {
     // metodo de colocar um nó(key e value) no topo da lista
     public String put(String key, String value){
         String evicted = null;
-        if (!map.containsKey(key)) {
+        if (map.containsKey(key)) {
             Node node = map.get(key);
             node.value = value;
             moveToFront(node);
@@ -89,7 +89,7 @@ public class LRUcache {
         return capacity;
     }
 
-    private void addToFront (Node node) {
+    private void addToFront(Node node) {
         node.prev = head;
         node.next = head.next;
         head.next.prev = node;

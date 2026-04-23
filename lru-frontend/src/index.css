@@ -81,6 +81,17 @@ h1 {
   transform: scale(0.97);
 }
 
+.buttons button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.buttons button:disabled:hover {
+  background: transparent;
+  border-color: #2a2d3a;
+  color: #e0e0e0;
+}
+
 /* ── CacheVisualizer ── */
 .visualizer {
   background: #1a1d27;

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getItem, putItem, deleteItem, clearCache} from "../service/cacheApi.js"
+import { getItem, putItem, deleteItem, clearCache, getState} from "../service/cacheApi.js"
 
 function ControlPanel({onStateChange}) {
     const [key, setKey] = useState('')
@@ -7,8 +7,15 @@ function ControlPanel({onStateChange}) {
 
     const handleGet = async () => {
         if (!key) return
-        const res = await getItem()
-        onStateChange(res.data)
+        const res = await getItem(key)
+        const state = await getState()
+
+        const stateWithOperation = {
+            ...state.data,
+            lastOperation: res.data.lastOperation
+        }
+
+        onStateChange(stateWithOperation)
     }
 
     const handlePut = async () => {
@@ -21,7 +28,9 @@ function ControlPanel({onStateChange}) {
     const handleDelete = async () => {
         if (!key) return
         const res = await deleteItem(key)
-        onStateChange(res.data)
+        if (res.data.lastOperation === 'DELETE') {
+            onStateChange(res.data)
+        }
     }
 
     const handleClear = async () => {
@@ -46,9 +55,9 @@ function ControlPanel({onStateChange}) {
                 onChange={(e) => setValue(e.target.value)}
             />
             <div className="buttons">
-                <button onClick={handleGet}>GET</button>
-                <button onClick={handlePut}>PUT</button>
-                <button onClick={handleDelete}>DELETE</button>
+                <button onClick={handleGet} disabled={!key}>GET</button>
+                <button onClick={handlePut} disabled={!key || !value}>PUT</button>
+                <button onClick={handleDelete} disabled={!key}>DELETE</button>
                 <button onClick={handleClear}>CLEAR</button>
             </div>
         </div>

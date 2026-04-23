@@ -1,4 +1,4 @@
-function cacheVisualizer({ state }) {
+function CacheVisualizer({ state }) {
     if (!state) {
         return (
             <div className="visualizer-empty">
@@ -34,9 +34,9 @@ function cacheVisualizer({ state }) {
                             <span className="key">{item.key}</span>
                             <span className="separator">→</span>
                             <span className="value">{item.value}</span>
-                            {index === 0 && <span className="tag">topo</span>}
+                            {index === 0 && <span className="tag">head</span>}
                             {index === items.length - 1 && items.length > 1 && (
-                                <span className="tag danger">fundo</span>
+                                <span className="tag danger">tail</span>
                             )}
                         </div>
                     ))
